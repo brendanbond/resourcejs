@@ -135,7 +135,7 @@ class Resource {
       }
     };
 
-    routeStack = [...routeStack, error.bind(this)]
+    routeStack = [...routeStack, error.bind(this)];
 
     // Declare the resourcejs object on the app.
     if (!this.app.resourcejs) {
@@ -193,9 +193,9 @@ class Resource {
           });
           break;
         case 400:
-        case 500:
+        case 500: {
           const errors = {};
-          for (let property in res.resource.error.errors) {
+          for (const property in res.resource.error.errors) {
             if (res.resource.error.errors.hasOwnProperty(property)) {
               const error = res.resource.error.errors[property];
               const { path, name, message } = error;
@@ -208,6 +208,7 @@ class Resource {
             errors: res.resource.error.errors,
           });
           break;
+        }
         case 204:
           // Convert 204 into 200, to preserve the empty result set.
           // Update the empty response body based on request method type.
@@ -439,7 +440,7 @@ class Resource {
     options = options || this.options;
 
     // Get the filters and omit the limit, skip, select, sort and populate.
-    const {limit, skip, select, sort, populate, ...filters} = req.query;
+    const { limit, skip, select, sort, populate, ...filters } = req.query;
 
     // Sets the findQuery property.
     const setFindQuery = function(name, value) {
@@ -474,7 +475,7 @@ class Resource {
             setFindQuery(filter.name, regex);
           }
           return;
-        } // See if there is a selector.
+        }
         else if (filter.selector) {
           var filterQuery = findQuery[filter.name];
           // Init the filter.
@@ -621,11 +622,11 @@ class Resource {
           delete req.headers.range;
         }
 
-        let { limit, skip } = req.query
-        limit = parseInt(limit, 10)
-        limit = (isNaN(limit) || (limit < 0)) ? defaults.limit : limit
-        skip = parseInt(skip, 10)
-        skip = (isNaN(skip) || (skip < 0)) ? defaults.skip : skip
+        let { limit, skip } = req.query;
+        limit = parseInt(limit, 10);
+        limit = (isNaN(limit) || (limit < 0)) ? defaults.limit : limit;
+        skip = parseInt(skip, 10);
+        skip = (isNaN(skip) || (skip < 0)) ? defaults.skip : skip;
         const reqQuery = { limit, skip };
 
         // If a skip is provided, then set the range headers.
@@ -750,7 +751,7 @@ class Resource {
                   });
                   item = newItem;
                 }
-                Resource.setResponse(res, { status: 200, item: item }, next)
+                Resource.setResponse(res, { status: 200, item: item }, next);
               }
             );
           });
@@ -851,7 +852,7 @@ class Resource {
       }
 
       // Remove __v field
-      const { __v, ...update} = req.body;
+      const { __v, ...update } = req.body;
       const query = req.modelQuery || req.model || this.model;
 
       query.findOne({ _id: Resource.ObjectId(req.params[`${this.name}Id`]) }, (err, item) => {

@@ -1,7 +1,7 @@
 {
   "extends": "formio",
   "parserOptions": {
-    "ecmaVersion": 2015
+    "ecmaVersion": 2018
   },
   "env": {
     "browser": true,
@@ -18,6 +18,8 @@
         "ignoreStrings": true
       }
     ],
+    "max-depth": ["warn", 4],
+    "max-statements": ["warn", 35],
     "no-console": "off",
     "prefer-const": "error",
     "prefer-template": "error",
@@ -34,6 +36,7 @@
         "capIsNewExceptions": ["Resource", "ObjectId"]
       }
     ],
+    "no-prototype-builtins": "warn",
     "comma-dangle": [
       "error",
       {
@@ -43,6 +46,7 @@
         "exports": "always-multiline",
         "functions": "ignore"
       }
-    ]
+    ],
+    "callback-return": "warn"
   }
 }
